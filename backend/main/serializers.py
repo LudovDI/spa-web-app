@@ -12,7 +12,7 @@ class TokenObtainPairSerializer(JwtTokenObtainPairSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('email', 'password')
+        fields = ('email', 'password', 'movie_watched')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -22,6 +22,11 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 class AnimeMovieSerializer(serializers.ModelSerializer):
+    watched_count = serializers.SerializerMethodField()
+
     class Meta:
         model = AnimeMovie
-        fields = ['pk', 'title', 'description']
+        fields = ['id', 'title', 'description', 'genres', 'watched_count']
+
+    def get_watched_count(self, obj):
+        return obj.watched_by.count()

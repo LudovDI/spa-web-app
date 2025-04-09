@@ -36,8 +36,26 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class AnimeMovie(models.Model):
+    # GENRE_CHOICES = [
+    #     ("Drama", "Drama"),
+    #     ("Comedy", "Comedy"),
+    #     ("Adventure", "Adventure"),
+    #     ("Romance", "Romance"),
+    #     ("Horror", "Horror"),
+    #     ("Fantasy", "Fantasy"),
+    #     ("Action", "Action"),
+    #     ("Sci-Fi", "Sci-Fi"),
+    #     ("Thriller", "Thriller"),
+    #     ("Mystery", "Mystery"),
+    #     ("Sports", "Sports"),
+    #     ("Supernatural", "Supernatural"),
+    #     ("Slice of Life", "Slice of Life"),
+    #     ("Gourmet", "Gourmet"),
+    #     ("Avant-garde", "Avant-garde"),
+    # ]
     title = models.CharField("Title", max_length=240)
     description = models.TextField(blank=True, null=True)
+    genres = models.JSONField(default=list, blank=True)
 
     def __str__(self):
         return self.title
